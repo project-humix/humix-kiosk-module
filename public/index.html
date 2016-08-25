@@ -1,0 +1,77 @@
+<!doctype html>
+
+<!-- ASSIGN OUR ANGULAR MODULE -->
+<html ng-app="humix-kiosk">
+<head>
+	<!-- META -->
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1"><!-- Optimize mobile viewport -->
+
+	<title>Humix Kiosk</title>
+
+	<!-- SCROLLS -->
+	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css"><!-- load bootstrap -->
+	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
+	<link rel="stylesheet" href="css/flipclock.css">
+	<style>
+		html 					{ overflow-y:scroll; }
+		body 					{ padding-top:50px; }
+	    h1                      {font-size: 650%;}
+        #counter {
+           
+           
+           
+            -moz-transform: scale(1.7);
+            -moz-transform-origin: 0 0;
+            
+        }
+	</style>
+
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="js/flipclock.js"></script>
+	<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular.min.js"></script><!-- load angular -->
+	<script src="/socket.io/socket.io.js"></script>
+	<script src="js/controllers/main.js"></script> <!-- load up our controller -->
+
+</head>
+<!-- SET THE CONTROLLER -->
+<body ng-controller="mainController" background="img/black.jpg">
+	<div class="container">
+
+
+		<div class="text-center text-muted" ng-if="Show('text') && Inited()">
+			<h1> {{ displayValue }} </h1>
+		</div>
+
+	    <div class="text-center text-muted" ng-if="Show('image') && Inited()">
+			<img src="{{displayValue}}" class="img-responsive" alt="Responsive image" width="480">
+		</div>
+
+		<div class="embed-responsive embed-responsive-4by3" ng-if="Show('video') && Inited()">
+			<iframe class="embed-responsive-item"  src="https://www.youtube.com/embed/Ke1Y3P9D0Bc?rel=0&amp;autoplay=1" frameborder="0" allowfullscreen></iframe>
+			<!--<iframe class="embed-responsive-item"  src="{{displayValue}}" frameborder="0" allowfullscreen></iframe>-->
+			
+		</div>
+
+		<div class="text-center text-muted"  ng-if="Show('icon') && Inited()">
+			<img src="/icon/{{displayValue}}" class="img-responsive" alt="Responsive image" width="480" ng-if="Inited()">
+		</div>
+
+		<div id="counter" class="clock" ng-show="Show('clock')">
+		</div>
+
+		<script type="text/javascript">
+					var clock;
+					
+					$(document).ready(function() {
+						clock = $('.clock').FlipClock({
+							clockFace: 'TwentyFourHourClock',
+							showSeconds: false
+						});
+					});
+		</script>
+	
+	</div>
+
+</body>
+</html>
