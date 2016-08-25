@@ -130,4 +130,3 @@ app.post('/api/display', function (req, res) {
     res.end();
 });
 
-//require('./app/routes.js')(app);
