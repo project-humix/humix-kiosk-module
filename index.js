@@ -1,8 +1,6 @@
-// set up ======================================================================
 var express = require('express');
 var app = express(); 						// create our app w/ express
 var port = process.env.PORT || 8000; 				// set the port
-//var database = require('./config/database'); 			// load the database config
 var morgan = require('morgan');
 var bodyParser = require('body-parser');
 var methodOverride = require('method-override');
@@ -13,7 +11,9 @@ var io = require('socket.io'),
     io = io.listen(server);
 
 
-/*
+
+
+// START HUMIX SETUP
 
 var config = {
     "moduleName" : "humix-kiosk-module",
@@ -84,7 +84,9 @@ humix.on('connection', function(humixSensorModule){
     });
 
 });
-*/
+
+// END HUMIX SETUP
+
 
 app.use(express.static('./public')); 		// set the static files location /public/img will be /img for users
 app.use(morgan('dev')); // log every request to the console
@@ -113,17 +115,12 @@ io.on('connection', function (socket) {
       console.log('recieved message from', 
                   from, 'msg', JSON.stringify(msg));
 
-      console.log('broadcasting message');
-      console.log('payload is', msg);
-      
-      console.log('broadcast complete');
     });
   });
 
 app.post('/api/display', function (req, res) {
     
     var input = req.body;
-    console.log('request:'+input.value);
 
     io.sockets.emit('update', {
     type: input.type,
